@@ -29,6 +29,10 @@ module.exports = {
       avatar: {
         type: Sequelize.STRING
       },
+      role: {
+        type: Sequelize.ENUM('admin', 'customer'),
+        defaultValue: 'customer'
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -39,7 +43,7 @@ module.exports = {
       }
     });
   },
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface) => {
     return queryInterface.dropTable('Users');
   }
 };

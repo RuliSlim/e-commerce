@@ -14,5 +14,6 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use(indexRouter);
+app.use(require('./middlewares/error'));
 
 module.exports = app;

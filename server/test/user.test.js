@@ -102,7 +102,7 @@ describe('User routes', () => {
       request(app)
         .post('/login')
         .send({
-          email: 'email@email.com',
+          email: 'email1@email.com',
           password: 'password',
         })
         .then(response => {
@@ -118,7 +118,7 @@ describe('User routes', () => {
       request(app)
         .post('/login')
         .send({
-          email: 'email@email.com',
+          email: 'email1@email.com',
           password: 'salah'
         })
         .then(response => {
