@@ -4,23 +4,20 @@
     "password": "delapan8",
     "database": "artsymeup",
     "host": "127.0.0.1",
-    "dialect": "postgres",
-    "operatorsAliases": false
+    "dialect": "postgres"
   },
   "test": {
     "username": "admin",
     "password": "delapan8",
     "database": "artsymeup_test",
     "host": "127.0.0.1",
-    "dialect": "postgres",
-    "operatorsAliases": false
+    "dialect": "postgres"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql",
-    "operatorsAliases": false
+    "username": "xvooqnohajiyxt",
+    "password": "1429e1d9dde0c4fb0e0f08c6098280d8daa06be9c1b003f73321697f533fb5cc",
+    "database": "d1c53mn0f61d7",
+    "host": "ec2-54-210-128-153.compute-1.amazonaws.com",
+    "dialect": "postgres"
   }
 }

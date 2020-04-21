@@ -3,17 +3,14 @@ const { hashPassword } = require('../helpers/bcrypt.js');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
-    firstName: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notNull: {
-          msg: 'First Name cannot be empty'
+          msg: 'Name cannot be empty'
         }
       }
-    },
-    lastName: {
-      type: DataTypes.STRING,
     },
     email: {
       type: DataTypes.STRING,
@@ -37,11 +34,10 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    phone: {
-      type: DataTypes.STRING,
-    },
-    avatar: {
-      type: DataTypes.STRING
+    role: {
+      type: DataTypes.ENUM('admin', 'custommer'),
+      allowNull: false,
+      defaultValue: 'customer'
     }
   }, {
     hooks: {

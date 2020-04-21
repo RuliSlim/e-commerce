@@ -6,9 +6,9 @@ const createError         = require('http-errors');
 
 class UserController {
   static register (req, res, next) {
-    const { firstName, lastName, email, password } = req.body;
+    const { name, email, password } = req.body;
     User
-      .create({id: uuid(), firstName, lastName, email, password})
+      .create({id: uuid(), name, email, password})
       .then(user => {
         const token = JWT.signToken(user);
         res.status(201).json({ user, access_token: token });
@@ -21,6 +21,7 @@ class UserController {
     User
       .findOne ({where: {email}})
       .then(user => {
+        if (!user) throw createError(400, 'email or password does not match');
         if (!comparePassword(password, user.password)) throw createError(400, 'email or password does not match');
         const token = JWT.signToken(user);
         res.status(200).json({ user, access_token: token });

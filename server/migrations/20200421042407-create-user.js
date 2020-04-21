@@ -7,12 +7,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.UUID
       },
-      firstName: {
+      name: {
         type: Sequelize.STRING,
         allowNull: false
-      },
-      lastName: {
-        type: Sequelize.STRING
       },
       email: {
         type: Sequelize.STRING,
@@ -22,12 +19,6 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
         allowNull: false
-      },
-      phone: {
-        type: Sequelize.STRING
-      },
-      avatar: {
-        type: Sequelize.STRING
       },
       role: {
         type: Sequelize.ENUM('admin', 'customer'),

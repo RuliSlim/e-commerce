@@ -8,15 +8,13 @@ const { queryInterface } = sequelize;
 describe('User routes', () => {
   const userData1 = {
     id: uuid(),
-    firstName: 'namaPertama',
-    lastName: 'akhirPertama',
+    name: 'namaPertama',
     email: 'email1@email.com',
     password: 'password'
   };
   const userData2 = {
     id: uuid(),
-    firstName: 'namaKedua',
-    lastName: 'akhirKedua',
+    name: 'namaKedua',
     email: 'email2@email.com',
     password: 'password'
   };
@@ -67,8 +65,7 @@ describe('User routes', () => {
         .post('/register')
         .send({
           password: 'password',
-          firstName: 'firstname',
-          lastName: 'lastname'
+          name: 'firstname'
         })
         .then(response => {
           const { status, body } = response;
@@ -90,7 +87,7 @@ describe('User routes', () => {
         .then(response => {
           const { status, body } = response;
           expect(status).toBe(400);
-          expect(body).toHaveProperty('message', 'First Name cannot be empty');
+          expect(body).toHaveProperty('message', 'Name cannot be empty');
           done();
         })
         .catch(err => done(err));
