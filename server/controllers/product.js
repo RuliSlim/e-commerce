@@ -11,6 +11,7 @@ class ProductController {
 
   static getOne (req, res, next) {
     const id = req.params.id;
+    // console.log(req.params.id)
     Product
       .findOne({where: {id}})
       .then(product => {

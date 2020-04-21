@@ -9,13 +9,17 @@ describe('Product routes', () => {
     name: 'name',
     image: 'image url',
     price: 25000,
-    stock: 10
+    stock: 10,
+    id: null,
   };
 
   beforeAll(done => {
     Product
       .create(productData)
-      .then(() => done())
+      .then((product) => {
+        productData.id = product.id;
+        done();
+      })
       .catch(err => done(err));
   });
 
@@ -38,10 +42,12 @@ describe('Product routes', () => {
         })
         .catch(err => done(err));
     });
+  });
 
+  describe('GET /products/:id', () => {
     test('200 Success get one product - Should return products detail', done => {
       request(app)
-        .get('/products/1')
+        .get('/products/' + productData.id)
         .then(response => {
           const { status } = response;
           expect(status).toBe(200);
