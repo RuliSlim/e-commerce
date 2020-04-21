@@ -3,7 +3,6 @@ const app  = require('../app.js');
 const { Product, sequelize } = require('../models');
 const request = require('supertest');
 const { queryInterface } = sequelize;
-const uuid = require('uuid/v4');
 
 describe('Product routes', () => {
   let productData = {
@@ -12,12 +11,18 @@ describe('Product routes', () => {
     price: 25000,
     stock: 10
   };
-  
-  beforeAll(done => {
 
+  beforeAll(done => {
     Product
       .create(productData)
       .then(() => done())
+      .catch(err => done(err));
+  });
+
+  afterAll(done => {
+    queryInterface
+      .bulkDelete('Products', {})
+      .done(() => done())
       .catch(err => done(err));
   });
 
