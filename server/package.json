@@ -4,7 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "NODE_ENV=test jest --detectOpenHandles --runInBand --forceExit --watchAll"
+    "db:test": "npx sequelize db:create --env=test",
+    "migrate": "npx sequelize db:migrate --env=test && npx sequelize db:seed:all --env=test",
+    "migrate:reset": "npx sequelize db:migrate:undo:all --env=test && npm run migrate --env=test",
+    "test": "NODE_ENV=test jest --watchAll",
+    "pretest": "npm run migrate:reset"
   },
   "dependencies": {
     "bcrypt": "^4.0.1",
@@ -19,8 +23,49 @@
     "sequelize": "^5.21.6"
   },
   "devDependencies": {
+    "eslint": "^6.8.0",
     "jest": "^25.4.0",
     "sequelize-cli": "^5.5.1",
     "supertest": "^4.0.2"
-  }
+  },
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC",
+    "eslintConfig": {
+      "env": {
+        "commonjs": true,
+        "es6": true,
+        "node": true
+      },
+      "extends": "eslint:recommended",
+      "globals": {
+          "Atomics": "readonly",
+          "SharedArrayBuffer": "readonly"
+      },
+      "parserOptions": {
+          "ecmaVersion": 2018
+      },
+      "rules": {
+          "indent": [
+              "error",
+              2
+          ],
+          "linebreak-style": [
+              "error",
+              "unix"
+          ],
+          "quotes": [
+              "error",
+              "single"
+          ],
+          "semi": [
+              "error",
+              "always"
+          ]
+      }
+    },
+  "description": ""
 }
