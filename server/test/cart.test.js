@@ -36,7 +36,7 @@ describe('Cart routes', () => {
         .then(response => {
           const { status, body } = response;
           id = response.id;
-          expect(status).toBe(200);
+          expect(status).toBe(201);
           expect(body).toHaveProperty('amount');
           expect(body).toHaveProperty('ProductId');
           expect(body).toHaveProperty('UserId');
