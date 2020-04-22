@@ -4,7 +4,7 @@ const createError   = require('http-errors');
 class ProductController {
   static getAll (req, res, next) {
     Product
-      .findAll()
+      .findAll({ order: [['createdAt', 'DESC']] })
       .then(products => res.status(200).json(products))
       .catch(err => next(err));
   }

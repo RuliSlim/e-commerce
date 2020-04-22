@@ -14,9 +14,11 @@ export default {
   components: {
     Navbar
   },
-
   data: () => ({
     //
-  })
+  }),
+  mounted () {
+    this.$store.dispatch('getProducts');
+  }
 };
 </script>

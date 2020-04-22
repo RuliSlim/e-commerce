@@ -1,7 +1,7 @@
 <template>
   <v-card
     class="mx-auto overflow-hidden"
-    height="400"
+    height="60"
   >
     <v-app-bar
       :collapse="!collapseOnScroll"
