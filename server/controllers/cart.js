@@ -3,9 +3,9 @@ const createError             = require('http-errors');
 
 class CartController {
   static getAll (req, res, next) {
-    const UserId = req.user.id;
+    const id = req.user.id;
     User
-      .findAll({where: { UserId }, include: [{ all: true }]})
+      .findAll({where: { id }, include: [{ all: true }]})
       .then(cart => {
         res.status(200).json(cart);
       })
@@ -16,7 +16,12 @@ class CartController {
     const UserId = req.user.id;
     const { amount, ProductId } = req.body;
     Cart
-      .create({ UserId, ProductId, amount })
+      .findOne({ where: { UserId, ProductId }})
+      .then(cart => {
+        if(!cart) return  Cart.create({ UserId, ProductId, amount });
+        cart.amount += amount;
+        return Cart.update({amount: cart.amount});
+      })
       .then(cart => {
         res.status(201).json(cart);
       })
@@ -29,6 +34,7 @@ class CartController {
     Cart
       .update({ ProductId, amount}, {where: { UserId }, returning: true})
       .then(cart => {
+        if(!cart) throw createError(404, 'Cart not found');
         res.status(200).json(cart);
       })
       .catch(err => next(err));
@@ -38,15 +44,35 @@ class CartController {
     const UserId = req.user.id;
     Cart
       .destroy({where: { UserId }})
-      .then(cart => {
-        res.status(200).json({message: 'Successfully delete cart'})
+      .then(() => {
+        res.status(200).json({message: 'Successfully delete cart'});
       })
       .catch(err => next(err));
   }
 
-  // static checkout (req, res, next) {
-
-  // }
+  static async checkout (req, res, next) {
+    // console.log('MASUUUUK')
+    try {
+      let { cart } = req.body;
+      console.log(req.body, 'CARt<<<<<<<<<,');
+      for (let i in cart) {
+        await Cart
+          .findOne({where: {id: cart[i]}})
+          .then(cart => {
+            console.log(cart, 'CART KIH CUK MUMET')
+            return Product
+              .update({ stock: cart.amount }, { where: { id: cart.ProductId }});
+          })
+          .then(() => {
+            console.log('masuk ke berapa kali ini cuk')
+          })
+          .catch(err => next(err));
+        }
+      res.status(200).json({message: 'Successfully checkout'})
+    } catch(err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = CartController;

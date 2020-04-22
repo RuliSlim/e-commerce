@@ -1,5 +1,5 @@
 module.exports = (err, req, res, next) => {
-  // console.log(err)
+  // console.log(err, 'ERRROROROR')
   let statusCode = 500;
   let message = 'Internal Server Error';
 
@@ -18,6 +18,10 @@ module.exports = (err, req, res, next) => {
       break;
     case 'NotFoundError':
       statusCode = 404;
+      message = err.message;
+      break;
+    case 'JsonWebTokenError':
+      statusCode = 401;
       message = err.message;
       break;
   }
