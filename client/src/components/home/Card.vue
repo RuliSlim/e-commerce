@@ -4,11 +4,12 @@
       class="mx-auto"
       color="grey lighten-4"
       max-width="600"
-      @click="detail"
     >
       <v-img
         :aspect-ratio="16/9"
         :src="card.image"
+        @click="detail"
+        style="cursor: pointer"
       >
         <v-expand-transition>
           <div
@@ -33,10 +34,13 @@
           right
           top
         >
-          <v-icon>mdi-cart</v-icon>
+          <v-icon @click="addToCart">mdi-cart</v-icon>
         </v-btn>
         <div class="font-weight-light grey--text title mb-2">Stock: {{ card.stock }}</div>
-        <h3 class="display-1 font-weight-light orange--text mb-2">{{ card.name }}</h3>
+        <h3 class="display-1 font-weight-light orange--text mb-2"
+            @click="detail"
+            style="cursor: pointer"
+          >{{ card.name }}</h3>
         <div class="font-weight-light title mb-2">
           Description goes here
         </div>
@@ -53,6 +57,22 @@ export default {
     detail () {
       this.$store.commit('SET_PRODUCT', this.card);
       this.$router.push('product/' + this.card.name.replace(/ /g, '-').toLowerCase());
+    },
+    addToCart () {
+      // console.log(this.card)
+      if (!localStorage.getItem('access_token')) {
+        this.$toasted.error('You have to login first', {duration: 4000});
+      } else {
+        let data = {
+          id: this.card.id,
+          amount: 1
+        }
+        this.$store.dispatch('addToCart', data)
+          .then(e => this.$toasted.success('Successfully added to Cart', {duration: 4000}))
+          .catch(e => {
+            this.$toasted.error(e.response.data.message, {duration: 4000})
+          });
+      }
     }
   }
 }

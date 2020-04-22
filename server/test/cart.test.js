@@ -24,6 +24,7 @@ describe('Cart routes', () => {
   };
 
   let CartId = null;
+  let ProductId = 1;
 
   beforeAll(done => {
     request(app)
@@ -99,7 +100,7 @@ describe('Cart routes', () => {
       request(app)
         .put('/carts/' + CartId)
         .set('access_token', userData1.token)
-        .send({ ProductId: 1, amount: 10 })
+        .send({ ProductId: 1, amount: 10, id: CartId })
         .then(response => {
           const { status } = response;
           expect(status).toBe(200);

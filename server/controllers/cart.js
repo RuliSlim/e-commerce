@@ -5,7 +5,7 @@ class CartController {
   static getAll (req, res, next) {
     const id = req.user.id;
     User
-      .findAll({where: { id }, include: [{ all: true }]})
+      .findOne({where: { id }, include: [{ model: Cart, attributes:['id', 'amount'] ,include: [ Product ] }]})
       .then(cart => {
         res.status(200).json(cart);
       })
@@ -16,25 +16,41 @@ class CartController {
     const UserId = req.user.id;
     const { amount, ProductId } = req.body;
     Cart
-      .findOne({ where: { UserId, ProductId }})
+      .findOne({ where: { UserId, ProductId }, attributes: ['id', 'amount', 'UserId', 'ProductId']})
       .then(cart => {
         if(!cart) return  Cart.create({ UserId, ProductId, amount });
-        cart.amount += amount;
-        return Cart.update({amount: cart.amount});
+        let newAmount = cart.amount + amount;
+        return Cart.update(
+          { 
+            amount: newAmount, UserId, ProductId 
+          }, { where: { id: cart.id }, returning: true});
       })
       .then(cart => {
-        res.status(201).json(cart);
+        if (cart.length) {
+          let [ cartSend ] = cart[1];
+          res.status(201).json(cartSend);
+        } else {
+          res.status(201).json(cart);
+        }
       })
       .catch(err => next(err));
   }
 
   static updateOne (req, res, next) {
     const UserId = req.user.id;
-    const { amount, ProductId } = req.body;
+    const { amount, ProductId, id } = req.body;
     Cart
-      .update({ ProductId, amount}, {where: { UserId }, returning: true})
+      .update({ ProductId, amount}, {where: { UserId, ProductId, id }, returning: true })
       .then(cart => {
         if(!cart) throw createError(404, 'Cart not found');
+        return Cart.findOne(
+          {
+            where: { id, UserId, ProductId }, 
+            include:[{ model: Product }],
+            attributes:['id', 'amount', 'ProductId']
+          });
+      })
+      .then(cart => {
         res.status(200).json(cart);
       })
       .catch(err => next(err));
@@ -42,8 +58,9 @@ class CartController {
 
   static deleteOne (req, res, next) {
     const UserId = req.user.id;
+    const id = req.params.id;
     Cart
-      .destroy({where: { UserId }})
+      .destroy({where: { UserId, id }})
       .then(() => {
         res.status(200).json({message: 'Successfully delete cart'});
       })
@@ -53,24 +70,37 @@ class CartController {
   static async checkout (req, res, next) {
     // console.log('MASUUUUK')
     try {
-      let { cart } = req.body;
-      console.log(req.body, 'CARt<<<<<<<<<,');
+      let cart  = req.body;
       for (let i in cart) {
         await Cart
-          .findOne({where: {id: cart[i]}})
+          .findOne({where: {id: cart[i].CartId}})
           .then(cart => {
-            console.log(cart, 'CART KIH CUK MUMET')
+            // console.log(cart, 'CART KIH CUK MUMET');
             return Product
-              .update({ stock: cart.amount }, { where: { id: cart.ProductId }});
+              .findOne({ where: { id: cart.ProductId }});
+          })
+          .then((product) => {
+            console.log(product.stock, '><<<<<<<<<');
+            let stock = product.stock - cart[i].amount;
+            let name = product.name;
+            let image = product.image;
+            let price = product.price;
+            let sold = product.sold + cart[i].amount;
+            return Product
+              .update({
+                name, image, price, stock, sold
+              }, { where: { id: product.id }});
           })
           .then(() => {
-            console.log('masuk ke berapa kali ini cuk')
+            return Cart
+              .destroy({ where: { id: cart[i].CartId }});
           })
           .catch(err => next(err));
-        }
-      res.status(200).json({message: 'Successfully checkout'})
+      }
     } catch(err) {
       next(err);
+    } finally {
+      res.status(200).json({message: 'Successfully checkout'});
     }
   }
 }
