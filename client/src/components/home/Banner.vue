@@ -18,13 +18,13 @@
         position="top"
         :lazy-src="image[i]"
       ></v-img>
-        <v-row
-          class="fill-height"
-          align="center"
-          justify="center"
-        >
-          <div class="display-3">{{ slide }}</div>
-        </v-row>
+      <v-row
+        class="fill-height"
+        align="center"
+        justify="center"
+      >
+        <div class="display-3 textIndex">{{ slide }}</div>
+      </v-row>
     </v-carousel-item>
   </v-carousel>
 </template>
@@ -53,7 +53,6 @@ export default {
     position: absolute;
     top: 100%;
     transform: translate(0, -30%);
-    z-index: -10;
     border-radius: 20px;
   }
   .radius{

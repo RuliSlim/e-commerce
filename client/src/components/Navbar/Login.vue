@@ -20,8 +20,8 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="blue darken-1" text @click="$emit('emitVisible')">Close</v-btn>
-      <v-btn color="blue darken-1" text @click="login">Login</v-btn>
+      <v-btn color="#9d8189" text @click="$emit('emitVisible')">Close</v-btn>
+      <v-btn color="#9d8189" text @click="login">Login</v-btn>
     </v-card-actions>
   </v-card>
 </template>

@@ -1,17 +1,28 @@
 <template>
-  <div class="d-flex flex-column flex-lg-row flex-md-row flex-xl-row flex-wrap">
-    <Card v-for="(card, index) in cards" :key="'Card-' + index" class="cardProduct"
-      :card="card"
-    />
+  <div class="">
+    <div class="d-flex flex-column flex-lg-row flex-md-row flex-xl-row flex-wrap" v-if="cards.length">
+        <Card v-for="(card, index) in cards" :key="'Card-' + index" class="cardProduct"
+          :card="card"
+        />
+    </div>
+    <div class="" v-else>
+      <atom-spinner
+        :animation-duration="1000"
+        :size="80"
+        color="#ff1d5e"
+        style="position: absolute; top: 40%; left: 50%;"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import Card from './Card.vue';
+import { AtomSpinner } from 'epic-spinners';
 
 export default {
   name: 'CardList',
-  components: { Card },
+  components: { Card, 'atom-spinner': AtomSpinner },
   computed: {
     cards () {
       return this.$store.state.products;

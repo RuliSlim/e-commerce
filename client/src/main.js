@@ -6,8 +6,11 @@ import Toasted from 'vue-toasted';
 import vuetify from './plugins/vuetify';
 import moment from 'moment';
 import VueCurrencyFilter from 'vue-currency-filter';
+import VueSpinners from 'vue-spinners';
+
 
 Vue.use(Toasted);
+Vue.use(VueSpinners);
 Vue.config.productionTip = false;
 
 Vue.use(VueCurrencyFilter,

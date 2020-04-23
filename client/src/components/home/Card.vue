@@ -30,7 +30,7 @@
       >
         <v-btn
           absolute
-          color="#5d61a2"
+          color="#9d8189"
           class="white--text"
           fab
           large
@@ -42,7 +42,7 @@
         <div class="font-weight-light grey--text title mb-2">Stock: {{ card.stock }}</div>
         <h3 class="display-1 font-weight-light mb-2"
             @click="detail"
-            color="#5d61a2"
+            color="#d8e2dc"
             style="cursor: pointer"
           >{{ card.name }}</h3>
         <div class="font-weight-light title mb-2">
@@ -89,13 +89,10 @@ export default {
   opacity: .5;
 }
 .image{
-  border: 4px solid #dcdcd7 !important;
+  border: 4px solid #9d8189 !important;
   border-radius: 4px;
   size: unset;
   width: auto;
   background-size: contain;
-  /* position: relative; */
-  /* padding: 5px; */
-  /* width: 150px; */
 }
 </style>

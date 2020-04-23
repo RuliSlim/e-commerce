@@ -2,16 +2,16 @@
   <v-row justify="center">
     <v-dialog v-model="dialog" persistent max-width="600px">
       <v-card>
-        <v-toolbar flat color="primary" dark>
+        <v-toolbar flat color="#ffcad4" dark>
           <v-toolbar-title>User Profile</v-toolbar-title>
         </v-toolbar>
         <v-tabs vertical>
           <v-tab>
-            <v-icon left>mdi-account</v-icon>
+            <v-icon left color="#9d8189">mdi-account</v-icon>
             Login
           </v-tab>
           <v-tab>
-            <v-icon left>mdi-lock</v-icon>
+            <v-icon left color="#9d8189">mdi-lock</v-icon>
             Register
           </v-tab>
 

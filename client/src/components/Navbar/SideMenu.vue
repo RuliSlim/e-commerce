@@ -67,9 +67,13 @@ export default {
   },
   methods: {
     detail (name) {
-      this.$router.push({
-        path: 'product/' + name.replace(/ /g, '-').toLowerCase()
-      });
+      if(!this.$route.params.name) {
+        this.$router.push({
+          path: 'product/' + name.replace(/ /g, '-').toLowerCase()
+        });
+      } else {
+        this.$router.push({path: name.replace(/ /g, '-').toLowerCase()})
+      }
     },
     checkout () {
       this.$router.push('/cart');

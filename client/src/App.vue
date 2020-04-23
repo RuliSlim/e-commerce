@@ -1,30 +1,43 @@
 <template>
   <v-app>
-    <Navbar />
-    <router-view />
+    <div class="" v-if="products.length">
+      <Navbar />
+      <router-view />
+      <Footer />
+    </div>
+    <div class="" v-else>
+      <atom-spinner
+        :animation-duration="1000"
+        :size="100"
+        color="#ff1d5e"
+        style="position: absolute; top: 40%; left: 50%;"
+      />
+    </div>
   </v-app>
 </template>
 
 <script>
 import Navbar from './components/Navbar/Navbar.vue';
+import Footer from './components/Navbar/Footer.vue';
+import { AtomSpinner } from 'epic-spinners';
 
 export default {
   name: 'App',
 
   components: {
-    Navbar
+    Navbar,
+    'atom-spinner': AtomSpinner,
+    Footer
   },
   data: () => ({
-    //
+    isLoading: true
   }),
   mounted () {
     this.$store.dispatch('getProducts');
   },
   computed: {
-    image () {
-      const slides = [];
-      this.$store.state.products.forEach(el => slides.push(el.image));
-      return slides.slice(0, 5);
+    products () {
+      return this.$store.state.products
     }
   }
 };
@@ -32,6 +45,6 @@ export default {
 
 <style >
   #app{
-    background-color: #a7d0b8 !important;
+    background-color: #ffe5d9 !important;
   }
 </style>

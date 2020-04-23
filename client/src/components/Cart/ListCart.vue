@@ -4,8 +4,7 @@
     class="mx-auto"
   >
     <v-toolbar
-      color="cyan"
-      dark
+      color="#d8e2dc"
     >
       <v-toolbar-title style="display: block; width: 100%;">Checkout
         <a class="float-right" @click="checkout">

@@ -19,7 +19,12 @@ class CartController {
       .findOne({ where: { UserId, ProductId }, attributes: ['id', 'amount', 'UserId', 'ProductId']})
       .then(cart => {
         if(!cart) return  Cart.create({ UserId, ProductId, amount });
-        let newAmount = cart.amount + amount;
+        let newAmount;
+        if (amount == 1) {
+          newAmount = Number(Number(cart.amount) + Number(amount));
+        } else {
+          newAmount = Number(amount);
+        }
         return Cart.update(
           { 
             amount: newAmount, UserId, ProductId 

@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      <span class="headline">Login</span>
+      <span class="headline">Register</span>
     </v-card-title>
     <v-card-text>
       <v-form>
@@ -23,8 +23,8 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="blue darken-1" text @click="$emit('emitVisible')">Close</v-btn>
-      <v-btn color="blue darken-1" text @click="register">Login</v-btn>
+      <v-btn color="#9d8189" ripple text=true rounded @click="$emit('emitVisible')">Close</v-btn>
+      <v-btn color="#9d8189" ripple text=true rounded @click="register">Login</v-btn>
     </v-card-actions>
   </v-card>
 </template>

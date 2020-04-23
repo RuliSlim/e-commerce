@@ -8,18 +8,20 @@
       :collapse-on-scroll="collapseOnScroll"
       fixed
       min-width="120px"
-      color="#d598a0"
+      color="#ffcad4"
       dark
     >
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
-      <v-toolbar-title @click="$router.push('/')" style="cursor: pointer;">Title</v-toolbar-title>
+      <v-toolbar-title @click="$router.push('/')" style="cursor: pointer; font-size: 2em">
+        <img src="/assets/apple-touch-icon.png" width="15%" class="float-left"/>
+        Artsymeup
+      </v-toolbar-title>
 
       <v-spacer></v-spacer>
       <span class="group pa-2" style="margin: 0 1em; cursor: pointer"  @click="drawer = true">
         <v-badge
-          bordered
-          color="error"
+          color="#9d8189"
           :content="totalCarts"
           overlap
         >
@@ -27,7 +29,7 @@
         </v-badge>
       </span>
       <v-btn
-        color="#5d61a2"
+        color="#9d8189"
         dark
         @click="isVisible = true"
         v-if="!isLogin"
@@ -35,7 +37,7 @@
         Login/SignUp
       </v-btn>
       <v-btn
-        color="primary"
+        color="#9d8189"
         dark
         v-else
         @click="logout"
