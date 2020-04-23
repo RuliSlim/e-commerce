@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column flex-lg-row flex-md-row flex-xl-row flex-wrap">
-    <Card v-for="(card, index) in cards" :key="'Card-' + index" class="cardProduct" 
+    <Card v-for="(card, index) in cards" :key="'Card-' + index" class="cardProduct"
       :card="card"
     />
   </div>
@@ -14,10 +14,10 @@ export default {
   components: { Card },
   computed: {
     cards () {
-      return this.$store.state.products
+      return this.$store.state.products;
     }
   }
-}
+};
 </script>
 
 <style>

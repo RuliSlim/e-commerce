@@ -42,29 +42,29 @@ export default {
   }),
   methods: {
     register () {
-      this.$emit('emitVisible');
-      let dataSend = {
+      const dataSend = {
         email: this.email,
         name: this.name,
         password: this.password
-      }
+      };
       axios({
         method: 'POST',
         url: '/register',
         data: dataSend
       })
-        .then(({data}) => {
+        .then(({ data }) => {
           localStorage.setItem('access_token', data.access_token);
-          this.$toasted.success(data.user.name, {duration: 4000});
+          this.$toasted.success(data.user.name, { duration: 4000 });
           this.$emit('emitLogged');
+          this.$emit('emitVisible');
         })
         .catch(err => {
-          let {data} = err.response
-          this.$toasted.error(data.message, {duration: 4000});
-        })
+          const { data } = err.response;
+          this.$toasted.error(data.message, { duration: 4000 });
+        });
     }
   }
-}
+};
 </script>
 
 <style>

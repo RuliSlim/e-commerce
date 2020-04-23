@@ -33,52 +33,49 @@ export default new Vuex.Store({
     },
     SET_CARTSLIST (state, payload) {
       // state.cartsList = payload;
-      state.cartsList = [...payload]
+      state.cartsList = [...payload];
     },
     UPDATE_CARTLIST: (state, payload) => {
-      let data = {
+      const data = {
         id: payload.ProductId,
         CartId: payload.id,
         amount: payload.amount,
         name: payload.Product.name,
         image: payload.Product.image,
         price: payload.Product.price,
-        stock: payload.Product.stock,
-      }
-      let index
-      for(let i in state.cartsList){
-        if(state.cartsList[i].CartId == data.CartId){
-          index = i
+        stock: payload.Product.stock
+      };
+      let index;
+      for (const i in state.cartsList) {
+        if (state.cartsList[i].CartId == data.CartId) {
+          index = i;
         }
       }
-      state.cartsList.splice(index,1,data);
+      state.cartsList.splice(index, 1, data);
       state.totalAmount = 0;
-      state.cartsList.forEach(el => state.totalAmount += el.amount);
-      console.log('masuk')
+      state.cartsList.forEach(el => {
+        state.totalAmount += el.amount;
+      });
     },
     ADD_AMOUNT (state, payload) {
       state.totalAmount += payload;
     },
     RESET_STATE (state) {
-      state.totalAmount = 0
-      state.products = []
-      state.product = {}
-      state.carts = []
-      state.cartsList = []
+      state.totalAmount = 0;
+      state.product = {};
+      state.carts = [];
+      state.cartsList = [];
     }
   },
   actions: {
-    getProducts({ commit }, payload) {
+    getProducts ({ commit }, payload) {
       axios({
         method: 'GET',
         url: '/products'
       })
-        .then(({data}) => {
+        .then(({ data }) => {
           commit('SET_PRODUCTS', data);
-        })
-        .catch(err => {
-          
-        })
+        });
     },
     getCarts ({ commit }) {
       axios({
@@ -88,22 +85,22 @@ export default new Vuex.Store({
           access_token: localStorage.getItem('access_token')
         }
       })
-        .then(({data}) => {
-          let { Carts } = data;
+        .then(({ data }) => {
+          const { Carts } = data;
           let amount = 0;
-          let products = []
+          const products = [];
           Carts.forEach(el => {
             amount += el.amount;
             products.push({
               id: el.Product.id,
-              name:  el.Product.name,
-              image:  el.Product.image,
-              price:  el.Product.price,
-              amount:  el.amount,
+              name: el.Product.name,
+              image: el.Product.image,
+              price: el.Product.price,
+              amount: el.amount,
               stock: el.Product.stock,
               CartId: el.id
             });
-          })
+          });
           commit('SET_AMOUNT', amount);
           commit('SET_CARTSLIST', products);
         })
@@ -123,10 +120,10 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           console.log(data, 'masuk sini');
-          commit('ADD_AMOUNT', payload.amount)
+          commit('ADD_AMOUNT', payload.amount);
           dispatch('getCarts');
           // commit('ADD_AMOUNT', payload.amount)
-        }) 
+        });
     },
     updateCart ({ commit }, payload) {
       axios({
@@ -150,7 +147,7 @@ export default new Vuex.Store({
         headers: {
           access_token: localStorage.getItem('access_token')
         }
-      })
+      });
     },
     checkout ({ commit, state }) {
       return axios({
@@ -160,7 +157,7 @@ export default new Vuex.Store({
         headers: {
           access_token: localStorage.getItem('access_token')
         }
-      })
+      });
     }
   },
   modules: {

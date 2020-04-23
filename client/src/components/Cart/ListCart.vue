@@ -44,10 +44,11 @@
                     hide-details
                     single-line
                     type="number"
+                    :max="item.stock"
                     @blur="updateCart(item)"
                   />
               </v-list-item-subtitle>
-              <v-list-item-subtitle >Total: Rp {{ item.amount * item.price }}</v-list-item-subtitle>
+              <v-list-item-subtitle >Total: {{ item.amount * item.price  | currency }}</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
           <v-divider :key="index"></v-divider>
@@ -58,7 +59,7 @@
           </v-list-item-icon>
           <v-list-item-title>
             Total
-            <span class="float-right">Rp {{totalPrice}} </span></v-list-item-title>
+            <span class="float-right">{{ totalPrice | currency }} </span></v-list-item-title>
         </v-list-item>
       </v-list>
   </v-card>
@@ -72,40 +73,42 @@ export default {
     clear (id) {
       this.$store.dispatch('deleteCart', id)
         .then((data) => {
-          this.$toasted.success(data.message, {duration: 4000});
-          this.$store.dispatch('getCarts')
+          this.$toasted.success(data.message, { duration: 4000 });
+          this.$store.dispatch('getCarts');
         })
-        .catch(err => this.$toasted.error(err.response.data.message, {duration: 4000}))
+        .catch(err => this.$toasted.error(err.response.data.message, { duration: 4000 }));
     },
     updateCart (item) {
-      let data = {
+      const data = {
         id: item.CartId,
         ProductId: item.id,
         amount: item.amount
-      }
-      this.$store.dispatch('updateCart', data)
+      };
+      this.$store.dispatch('updateCart', data);
     },
     checkout () {
       this.$store.dispatch('checkout')
         .then(data => {
-          this.$toasted.success('Thank you!', {duration: 4000});
+          this.$toasted.success('Thank you!', { duration: 4000 });
           this.$store.dispatch('getCarts');
           this.$store.dispatch('getProducts');
           this.$router.push('/');
         })
         .catch(err => {
-          this.$toasted.error(err.response.data.message, {duration: 4000});
-        })
+          this.$toasted.error(err.response.data.message, { duration: 4000 });
+        });
     }
   },
   computed: {
     totalPrice () {
       let total = 0;
-      this.items.forEach(item => total += Number(item.price * item.amount));
-      return total
+      this.items.forEach(item => {
+        total += Number(item.price * item.amount);
+      });
+      return total;
     }
   }
-}
+};
 </script>
 
 <style>

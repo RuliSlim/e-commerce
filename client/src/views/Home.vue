@@ -14,9 +14,9 @@ export default {
   components: { Banner, CardList },
   data () {
     return {
-    }
+    };
   }
-}
+};
 </script>
 
 <style scoped>

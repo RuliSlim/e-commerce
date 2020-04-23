@@ -28,7 +28,7 @@
             </v-list-item-icon>
           </v-list-item-content>
         </template>
-  
+
         <v-list-item two-line
           v-for="(product, i) in cartList"
           :key="i"
@@ -59,20 +59,20 @@ export default {
   },
   computed: {
     cartList () {
-      return this.$store.state.cartsList
+      return this.$store.state.cartsList;
     }
   },
   watch: {
-    
+
   },
   methods: {
     detail (name) {
-      this.$router.push( {
+      this.$router.push({
         path: 'product/' + name.replace(/ /g, '-').toLowerCase()
       });
     },
     checkout () {
-      this.$router.push('/cart')
+      this.$router.push('/cart');
     }
   }
 };

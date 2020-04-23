@@ -8,7 +8,7 @@
       :collapse-on-scroll="collapseOnScroll"
       fixed
       min-width="120px"
-      color="deep-purple"
+      color="#d598a0"
       dark
     >
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
@@ -27,7 +27,7 @@
         </v-badge>
       </span>
       <v-btn
-        color="primary"
+        color="#5d61a2"
         dark
         @click="isVisible = true"
         v-if="!isLogin"
@@ -67,21 +67,21 @@ export default {
     isVisible: false,
     isLogin: false
   }),
-  mounted() {
+  mounted () {
     if (localStorage.getItem('access_token')) {
-      this.isLogin = true
+      this.isLogin = true;
       this.$store.dispatch('getCarts');
     }
   },
   computed: {
     totalCarts (total) {
-      return this.$store.state.totalAmount
+      return this.$store.state.totalAmount;
     }
   },
   methods: {
     logout () {
       this.isLogin = false;
-      this.$toasted.success('Bye', {duration: 4000});
+      this.$toasted.success('Bye', { duration: 4000 });
       localStorage.removeItem('access_token');
       this.$store.commit('RESET_STATE');
     }

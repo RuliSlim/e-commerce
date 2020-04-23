@@ -15,10 +15,10 @@ export default {
   name: 'Detail',
   computed: {
     item () {
-      return this.$store.state.product
+      return this.$store.state.product;
     }
   }
-}
+};
 </script>
 
 <style>

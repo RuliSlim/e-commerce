@@ -38,30 +38,30 @@ export default {
   }),
   methods: {
     login () {
-      let dataSend = {
+      const dataSend = {
         email: this.email,
         password: this.password
-      }
+      };
       axios({
         method: 'POST',
         url: '/login',
         data: dataSend
       })
-        .then(({data}) => {
+        .then(({ data }) => {
           this.$emit('emitVisible');
           this.$emit('emitLogged');
           localStorage.setItem('access_token', data.access_token);
           this.$store.dispatch('getCarts');
-          this.$toasted.success(data.user.name, {duration: 4000});
+          this.$toasted.success(data.user.name, { duration: 4000 });
         })
         .catch(err => {
           this.$emit('emitVisible');
-          let {data} = err.response
-          this.$toasted.error(data.message, {duration: 4000});
-        })
+          const { data } = err.response;
+          this.$toasted.error(data.message, { duration: 4000 });
+        });
     }
   }
-}
+};
 </script>
 
 <style>

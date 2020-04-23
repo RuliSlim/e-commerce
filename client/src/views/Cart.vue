@@ -15,10 +15,10 @@ export default {
   components: { ListCart },
   computed: {
     getCarts () {
-      return this.$store.state.cartsList
+      return this.$store.state.cartsList;
     }
   }
-}
+};
 </script>
 
 <style>

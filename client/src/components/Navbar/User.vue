@@ -32,7 +32,7 @@
           <v-tab-item>
             <v-card flat>
               <v-card-text>
-                
+
               </v-card-text>
             </v-card>
           </v-tab-item>
@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import Login from './Login.vue'
-import Register from './Register.vue'
+import Login from './Login.vue';
+import Register from './Register.vue';
 
 export default {
   name: 'User',
@@ -52,9 +52,9 @@ export default {
   data () {
     return {
       dialog: true
-    }
+    };
   },
   methods: {
   }
-}
+};
 </script>
