@@ -2,7 +2,7 @@ let config;
 
 if (process.env.NODE_ENV === 'production') {
   config = {
-    $url: 'https://cms-commerce.herokuapp.com'
+    $url: 'https://artsymeup.herokuapp.com'
   };
 } else {
   config = {

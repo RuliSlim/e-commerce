@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "start": "node ./bin/www",
     "db:test": "npx sequelize db:create --env=test",
     "migrate": "npx sequelize db:migrate --env=test && npx sequelize db:seed:all --env=test",
     "migrate:reset": "npx sequelize db:migrate:undo:all --env=test && npm run migrate --env=test",
